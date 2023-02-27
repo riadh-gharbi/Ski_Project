@@ -1,8 +1,11 @@
 package tn.esprit.asi.ski_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Entity(name="skieurs")
 public class Skieur {
@@ -15,12 +18,87 @@ public class Skieur {
     private String ville;
 
     @ManyToMany
-    private List<Piste> pistes;
+    private Set<Piste> pistes;
     @OneToMany (mappedBy = "skieur")
     private List<Inscription> inscriptions;
 
     @OneToOne
     private Abonnement abonnement;
+
+    public Skieur()
+    {
+        pistes = new Set<Piste>() {
+            @Override
+            public int size() {
+                return 0;
+            }
+
+            @Override
+            public boolean isEmpty() {
+                return false;
+            }
+
+            @Override
+            public boolean contains(Object o) {
+                return false;
+            }
+
+            @Override
+            public Iterator<Piste> iterator() {
+                return null;
+            }
+
+            @Override
+            public Object[] toArray() {
+                return new Object[0];
+            }
+
+            @Override
+            public <T> T[] toArray(T[] a) {
+                return null;
+            }
+
+            @Override
+            public boolean add(Piste piste) {
+                return false;
+            }
+
+            @Override
+            public boolean remove(Object o) {
+                return false;
+            }
+
+            @Override
+            public boolean containsAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean addAll(Collection<? extends Piste> c) {
+                return false;
+            }
+
+            @Override
+            public boolean retainAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public boolean removeAll(Collection<?> c) {
+                return false;
+            }
+
+            @Override
+            public void clear() {
+
+            }
+        };
+    }
+
+    public void addPiste(Piste piste)
+    {
+        pistes.add(piste);
+    }
 
     public long getNumSkieur() {
         return numSkieur;
@@ -62,11 +140,11 @@ public class Skieur {
         this.ville = ville;
     }
 
-    public List<Piste> getPistes() {
+    public Set<Piste> getPistes() {
         return pistes;
     }
 
-    public void setPistes(List<Piste> pistes) {
+    public void setPistes(Set<Piste> pistes) {
         this.pistes = pistes;
     }
 

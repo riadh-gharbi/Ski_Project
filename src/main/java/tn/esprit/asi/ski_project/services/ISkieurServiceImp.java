@@ -3,6 +3,8 @@ package tn.esprit.asi.ski_project.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.asi.ski_project.entities.Skieur;
+import tn.esprit.asi.ski_project.repositories.AbonnementRepository;
+import tn.esprit.asi.ski_project.repositories.PisteRepository;
 import tn.esprit.asi.ski_project.repositories.SkieurRepository;
 
 import java.util.List;
@@ -21,6 +23,10 @@ public class ISkieurServiceImp implements ISkieurService {
     //It is a dependency which is injected inside the variable.
     @Autowired
     private SkieurRepository skieurRepository;
+    @Autowired
+    private PisteRepository pisteRepository;
+    @Autowired
+    private AbonnementRepository abonnementRepository;
     @Override
     public void add(Skieur s) {
         //Traitement quelconque
@@ -45,5 +51,26 @@ public class ISkieurServiceImp implements ISkieurService {
     @Override
     public void remove(long id) {
         skieurRepository.deleteById(id);
+    }
+
+    @Override
+    public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
+        if(skieurRepository.existsById(numSkieur) && pisteRepository.existsById(numPiste)){
+            Skieur s= skieurRepository.findById(numSkieur).get();
+            s.addPiste(pisteRepository.findById(numPiste).get());
+            return skieurRepository.save(s);
+        }
+        return null;
+    }
+
+    @Override
+    public Skieur assignSkieurToAbon(Long numSkieur, Long numAbon) {
+        if(skieurRepository.existsById(numSkieur) && abonnementRepository.existsById(numAbon))
+        {
+            Skieur s = skieurRepository.findById(numSkieur).get();
+            s.setAbonnement(abonnementRepository.findById(numAbon).get());
+            return skieurRepository.save(s);
+        }
+        return null;
     }
 }

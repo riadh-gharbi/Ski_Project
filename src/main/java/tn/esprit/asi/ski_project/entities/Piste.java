@@ -1,8 +1,12 @@
 package tn.esprit.asi.ski_project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity(name="pistes")
@@ -20,7 +24,8 @@ public class Piste {
     private int pente;
 
     @ManyToMany(mappedBy = "pistes")
-    private List<Skieur> skieurList;
+    @JsonIgnore
+    private Set<Skieur> skieurList;
 
 
     public long getNumPiste() {
@@ -63,11 +68,11 @@ public class Piste {
         this.pente = pente;
     }
 
-    public List<Skieur> getSkieurList() {
+    public Set<Skieur> getSkieurList() {
         return skieurList;
     }
 
-    public void setSkieurList(List<Skieur> skieurList) {
+    public void setSkieurList(Set<Skieur> skieurList) {
         this.skieurList = skieurList;
     }
 }
