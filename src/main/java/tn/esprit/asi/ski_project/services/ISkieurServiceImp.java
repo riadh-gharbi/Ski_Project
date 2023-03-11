@@ -2,12 +2,17 @@ package tn.esprit.asi.ski_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.asi.ski_project.entities.Abonnement;
+import tn.esprit.asi.ski_project.entities.Inscription;
 import tn.esprit.asi.ski_project.entities.Skieur;
+import tn.esprit.asi.ski_project.entities.TypeAbonnement;
 import tn.esprit.asi.ski_project.repositories.AbonnementRepository;
+import tn.esprit.asi.ski_project.repositories.InscriptionRepository;
 import tn.esprit.asi.ski_project.repositories.PisteRepository;
 import tn.esprit.asi.ski_project.repositories.SkieurRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 //the @Service indicates to the project to create an instance of this class to be called by the Controller
@@ -27,6 +32,8 @@ public class ISkieurServiceImp implements ISkieurService {
     private PisteRepository pisteRepository;
     @Autowired
     private AbonnementRepository abonnementRepository;
+    @Autowired
+    private InscriptionRepository inscriptionRepository;
     @Override
     public void add(Skieur s) {
         //Traitement quelconque
@@ -72,5 +79,22 @@ public class ISkieurServiceImp implements ISkieurService {
             return skieurRepository.save(s);
         }
         return null;
+    }
+
+    @Override
+    public Skieur addSkierAndAssignToCourse(Skieur skieur) {
+        //Créer Abonnement
+        Abonnement a = skieur.getAbonnement();
+        if(a != null && skieur.getInscriptions() != null){
+        abonnementRepository.save(a);
+        inscriptionRepository.saveAll(skieur.getInscriptions());
+        return skieurRepository.save(skieur);}
+        return null;
+    }
+
+    @Override
+    public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
+        //return getAll().stream().filter(skieur -> skieur.getAbonnement().getTypeAbon()== typeAbonnement).collect(Collectors.toList());
+        return skieurRepository.findByAbonnementTypeAbon(typeAbonnement);
     }
 }

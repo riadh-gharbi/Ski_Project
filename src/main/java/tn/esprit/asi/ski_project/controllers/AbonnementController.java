@@ -5,14 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.asi.ski_project.entities.Abonnement;
 import tn.esprit.asi.ski_project.entities.Piste;
+import tn.esprit.asi.ski_project.entities.TypeAbonnement;
 import tn.esprit.asi.ski_project.services.IAbonnementService;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/abon")
-public class AbonnementController {
 
+public class AbonnementController {
     @Autowired
     private IAbonnementService abonnementService;
 
@@ -42,6 +44,12 @@ public class AbonnementController {
     @DeleteMapping
     public void deleteAbonnement(@RequestBody Abonnement abonnement) {
         abonnementService.remove(abonnement.getNumAbon());
+    }
+
+    @GetMapping("/type")
+    public Set<Abonnement> getByType(@RequestBody TypeAbonnement typeAbonnement)
+    {
+        return abonnementService.getSubscriptionByType(typeAbonnement);
     }
 
 }

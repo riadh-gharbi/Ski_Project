@@ -20,80 +20,12 @@ public class Skieur {
     @ManyToMany
     private Set<Piste> pistes;
     @OneToMany (mappedBy = "skieur")
-    private List<Inscription> inscriptions;
+    private Set<Inscription> inscriptions;
 
     @OneToOne
     private Abonnement abonnement;
 
-    public Skieur()
-    {
-        pistes = new Set<Piste>() {
-            @Override
-            public int size() {
-                return 0;
-            }
 
-            @Override
-            public boolean isEmpty() {
-                return false;
-            }
-
-            @Override
-            public boolean contains(Object o) {
-                return false;
-            }
-
-            @Override
-            public Iterator<Piste> iterator() {
-                return null;
-            }
-
-            @Override
-            public Object[] toArray() {
-                return new Object[0];
-            }
-
-            @Override
-            public <T> T[] toArray(T[] a) {
-                return null;
-            }
-
-            @Override
-            public boolean add(Piste piste) {
-                return false;
-            }
-
-            @Override
-            public boolean remove(Object o) {
-                return false;
-            }
-
-            @Override
-            public boolean containsAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean addAll(Collection<? extends Piste> c) {
-                return false;
-            }
-
-            @Override
-            public boolean retainAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public boolean removeAll(Collection<?> c) {
-                return false;
-            }
-
-            @Override
-            public void clear() {
-
-            }
-        };
-    }
 
     public void addPiste(Piste piste)
     {
@@ -148,11 +80,11 @@ public class Skieur {
         this.pistes = pistes;
     }
 
-    public List<Inscription> getInscriptions() {
+    public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
 
-    public void setInscriptions(List<Inscription> inscriptions) {
+    public void setInscriptions(Set<Inscription> inscriptions) {
         this.inscriptions = inscriptions;
     }
 

@@ -3,6 +3,7 @@ package tn.esprit.asi.ski_project.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name="moniteurs")
 public class Moniteur {
@@ -16,7 +17,7 @@ public class Moniteur {
     private LocalDate dateRecru;
 
     @OneToMany
-    private List<Cours> coursList;
+    private Set<Cours> coursList;
 
     public long getNumMoniteur() {
         return numMoniteur;
@@ -50,11 +51,11 @@ public class Moniteur {
         this.dateRecru = dateRecru;
     }
 
-    public List<Cours> getCoursList() {
+    public Set<Cours> getCoursList() {
         return coursList;
     }
 
-    public void setCoursList(List<Cours> coursList) {
+    public void setCoursList(Set<Cours> coursList) {
         this.coursList = coursList;
     }
 }

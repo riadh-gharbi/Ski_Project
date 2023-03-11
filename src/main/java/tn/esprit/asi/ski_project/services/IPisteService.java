@@ -10,4 +10,5 @@ public interface IPisteService {
     List<Piste> getAll();
     Piste getById(long id);
     void remove(long id);
+
 }

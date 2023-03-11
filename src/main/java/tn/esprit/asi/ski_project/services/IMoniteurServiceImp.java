@@ -2,10 +2,16 @@ package tn.esprit.asi.ski_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.asi.ski_project.entities.Inscription;
 import tn.esprit.asi.ski_project.entities.Moniteur;
+import tn.esprit.asi.ski_project.entities.Support;
+import tn.esprit.asi.ski_project.repositories.CoursRepository;
+import tn.esprit.asi.ski_project.repositories.InscriptionRepository;
 import tn.esprit.asi.ski_project.repositories.MoniteurRepository;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -13,6 +19,8 @@ public class IMoniteurServiceImp implements IMoniteurService {
 
     @Autowired
     private MoniteurRepository moniteurRepository;
+    @Autowired
+    private InscriptionRepository inscriptionRepository;
     @Override
     public void add(Moniteur m) {
         moniteurRepository.save(m);
@@ -37,5 +45,11 @@ public class IMoniteurServiceImp implements IMoniteurService {
     public void remove(long id) {
         moniteurRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support) {
+       return getById(numInstructor).getCoursList().stream()
+               .flatMap(cours -> cours.getInscriptions().stream()).map(Inscription::getNumSemaine).collect(Collectors.toList());
     }
 }

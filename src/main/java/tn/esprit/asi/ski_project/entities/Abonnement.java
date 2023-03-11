@@ -19,7 +19,7 @@ public class Abonnement {
     @Enumerated(EnumType.STRING)
     private TypeAbonnement typeAbon;
 
-    public long getNumAbon() {
+    public Long getNumAbon() {
         return numAbon;
     }
 

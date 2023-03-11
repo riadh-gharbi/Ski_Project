@@ -2,6 +2,7 @@ package tn.esprit.asi.ski_project.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity(name="cours")
@@ -21,7 +22,7 @@ public class Cours {
     private int creneau;
 
     @OneToMany(mappedBy = "cours")
-    private List<Inscription> inscriptions;
+    private Set<Inscription> inscriptions;
 
     public long getNumCours() {
         return numCours;
@@ -71,11 +72,11 @@ public class Cours {
         this.creneau = creneau;
     }
 
-    public List<Inscription> getInscriptions() {
+    public Set<Inscription> getInscriptions() {
         return inscriptions;
     }
 
-    public void setInscriptions(List<Inscription> inscriptions) {
+    public void setInscriptions(Set<Inscription> inscriptions) {
         this.inscriptions = inscriptions;
     }
 }
