@@ -14,7 +14,7 @@ public interface IAbonnementService {
     Abonnement getById(long id);
     void remove(long id);
     Set<Abonnement> getSubscriptionByType(TypeAbonnement type);
-    List<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate,
+    Set<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate,
 
                                                   LocalDate endDate);
 }

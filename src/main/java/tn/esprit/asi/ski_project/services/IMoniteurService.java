@@ -15,4 +15,5 @@ public interface IMoniteurService {
     List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor,
 
                                                       Support support);
+    Moniteur addMoniteurAndAssignToCourse(Moniteur moniteur,Long numCours);
 }

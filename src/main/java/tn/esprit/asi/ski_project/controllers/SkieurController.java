@@ -2,6 +2,7 @@ package tn.esprit.asi.ski_project.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.asi.ski_project.entities.Abonnement;
 import tn.esprit.asi.ski_project.entities.Skieur;
 import tn.esprit.asi.ski_project.services.ISkieurService;
 

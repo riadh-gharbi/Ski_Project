@@ -2,6 +2,7 @@ package tn.esprit.asi.ski_project.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class Skieur {
     @OneToMany (mappedBy = "skieur")
     private Set<Inscription> inscriptions;
 
-    @OneToOne
+    @OneToOne(cascade = { CascadeType.PERSIST , CascadeType.REMOVE })
     private Abonnement abonnement;
 
 

@@ -2,6 +2,7 @@ package tn.esprit.asi.ski_project.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.asi.ski_project.entities.Abonnement;
 import tn.esprit.asi.ski_project.entities.Inscription;
 import tn.esprit.asi.ski_project.entities.Skieur;
@@ -35,9 +36,20 @@ public class ISkieurServiceImp implements ISkieurService {
     @Autowired
     private InscriptionRepository inscriptionRepository;
     @Override
+    @Transactional
     public void add(Skieur s) {
         //Traitement quelconque
+        //Abonnement abonAjouter = s.getAbonnement();
+        //Abonnement addedAbon = abonnementRepository.save(abonAjouter);
+        //Skieur addedSkieur = skieurRepository.save(s);
+        //addedSkieur.setAbonnement(addedAbon);
+        //skieurRepository.save(addedSkieur);
         skieurRepository.save(s);
+        //Abonnement abonAjouter1 = s.getAbonnement();
+        //abonnementRepository.saveAndFlush(abonAjouter1);
+        //skieurRepository.saveAndFlush(s);
+        //s.setAbonnement(abonAjouter1);
+        //skieurRepository.save(s);
     }
 
     @Override
@@ -61,11 +73,12 @@ public class ISkieurServiceImp implements ISkieurService {
     }
 
     @Override
+    @Transactional
     public Skieur assignSkieurToPiste(Long numSkieur, Long numPiste) {
         if(skieurRepository.existsById(numSkieur) && pisteRepository.existsById(numPiste)){
             Skieur s= skieurRepository.findById(numSkieur).get();
             s.addPiste(pisteRepository.findById(numPiste).get());
-            return skieurRepository.save(s);
+            return s;
         }
         return null;
     }

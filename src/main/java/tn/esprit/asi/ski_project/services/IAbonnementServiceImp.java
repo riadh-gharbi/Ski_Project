@@ -51,7 +51,8 @@ public class IAbonnementServiceImp implements IAbonnementService {
     }
 
     @Override
-    public List<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
-        return getAll().stream().filter(abonnement -> abonnement.getDateDebut().isBefore(endDate) && abonnement.getDateDebut().isAfter(startDate)).collect(Collectors.toList());
+    public Set<Abonnement> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
+        //return getAll().stream().filter(abonnement -> abonnement.getDateDebut().isBefore(endDate) && abonnement.getDateDebut().isAfter(startDate)).collect(Collectors.toList());
+        return abonnementRepository.findByDateDebutBetween(startDate,endDate);
     }
 }
