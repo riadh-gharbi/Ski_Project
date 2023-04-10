@@ -1,6 +1,7 @@
 package tn.esprit.asi.ski_project.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.asi.ski_project.entities.Inscription;
@@ -11,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/inscription")
+@RequiredArgsConstructor
 public class InscriptionController {
 
-    @Autowired
-    private IInscriptionService inscriptionService;
+
+    private final IInscriptionService inscriptionService;
     @PostMapping()
     public Inscription addInscription(@RequestBody Inscription inscription) //requestBody : tell the program to look at the body of the http request for a skieur object (in the JSON data)
     {

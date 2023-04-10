@@ -1,5 +1,6 @@
 package tn.esprit.asi.ski_project.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 //the @Service indicates to the project to create an instance of this class to be called by the Controller
 //We don't need to do it in the repository because the Spring Data JPA takes care of it by scanning the project (explained down below)
 @Service
+@RequiredArgsConstructor
 public class ISkieurServiceImp implements ISkieurService {
     //Injection de dépendances
     //the skieur repo is empty without instance
@@ -27,14 +29,14 @@ public class ISkieurServiceImp implements ISkieurService {
     //The instances are located in the project context in the form of beans
     //It injects the instance to the variable with autowired
     //It is a dependency which is injected inside the variable.
-    @Autowired
-    private SkieurRepository skieurRepository;
-    @Autowired
-    private PisteRepository pisteRepository;
-    @Autowired
-    private AbonnementRepository abonnementRepository;
-    @Autowired
-    private InscriptionRepository inscriptionRepository;
+
+    private final SkieurRepository skieurRepository;
+
+    private final PisteRepository pisteRepository;
+
+    private final AbonnementRepository abonnementRepository;
+
+    private final InscriptionRepository inscriptionRepository;
     @Override
     @Transactional
     public void add(Skieur s) {
@@ -84,12 +86,13 @@ public class ISkieurServiceImp implements ISkieurService {
     }
 
     @Override
+    @Transactional
     public Skieur assignSkieurToAbon(Long numSkieur, Long numAbon) {
         if(skieurRepository.existsById(numSkieur) && abonnementRepository.existsById(numAbon))
         {
             Skieur s = skieurRepository.findById(numSkieur).get();
             s.setAbonnement(abonnementRepository.findById(numAbon).get());
-            return skieurRepository.save(s);
+            return s;
         }
         return null;
     }

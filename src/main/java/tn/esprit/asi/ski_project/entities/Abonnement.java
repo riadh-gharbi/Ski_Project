@@ -1,13 +1,14 @@
 package tn.esprit.asi.ski_project.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 
 
 
 @Entity(name="abonnements")
-public class Abonnement {
+public class Abonnement implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numAbon;

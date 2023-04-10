@@ -1,6 +1,7 @@
 package tn.esprit.asi.ski_project.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.asi.ski_project.entities.Cours;
@@ -11,10 +12,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cours")
+@RequiredArgsConstructor
 public class CoursController {
 
-    @Autowired
-    private ICoursService coursService;
+
+    private final ICoursService coursService;
 
     @PostMapping()
     public Cours addCours(@RequestBody Cours cours) //requestBody : tell the program to look at the body of the http request for a skieur object (in the JSON data)

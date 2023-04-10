@@ -1,6 +1,7 @@
 package tn.esprit.asi.ski_project.controllers;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.asi.ski_project.entities.Moniteur;
@@ -11,9 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/moniteur")
+@RequiredArgsConstructor
 public class MoniteurController {
-    @Autowired
-    private IMoniteurService moniteurService;
+
+    private final IMoniteurService moniteurService;
 
     @PostMapping()
     public Moniteur addMoniteur(@RequestBody Moniteur moniteur) //requestBody : tell the program to look at the body of the http request for a skieur object (in the JSON data)

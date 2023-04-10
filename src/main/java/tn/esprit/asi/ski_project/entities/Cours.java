@@ -1,12 +1,13 @@
 package tn.esprit.asi.ski_project.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 
 @Entity(name="cours")
-public class Cours {
+public class Cours implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

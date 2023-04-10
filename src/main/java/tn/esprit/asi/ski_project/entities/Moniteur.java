@@ -1,12 +1,13 @@
 package tn.esprit.asi.ski_project.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 @Entity(name="moniteurs")
-public class Moniteur {
+public class Moniteur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

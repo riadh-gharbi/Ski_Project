@@ -1,6 +1,8 @@
 package tn.esprit.asi.ski_project.controllers;
 
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +17,10 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/abon")
-
+@RequiredArgsConstructor
 public class AbonnementController {
-    @Autowired
-    private IAbonnementService abonnementService;
+    //@Autowired
+    private final IAbonnementService abonnementService;
 
     @PostMapping()
     public Abonnement addAbon(@RequestBody Abonnement abonnement) //requestBody : tell the program to look at the body of the http request for a skieur object (in the JSON data)

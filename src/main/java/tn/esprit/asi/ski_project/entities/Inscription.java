@@ -1,9 +1,10 @@
 package tn.esprit.asi.ski_project.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name="inscriptions")
-public class Inscription {
+public class Inscription implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long numInscription;

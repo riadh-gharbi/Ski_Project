@@ -10,7 +10,9 @@ import tn.esprit.asi.ski_project.repositories.CoursRepository;
 import tn.esprit.asi.ski_project.repositories.InscriptionRepository;
 import tn.esprit.asi.ski_project.repositories.MoniteurRepository;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,24 @@ public class IMoniteurServiceImp implements IMoniteurService {
     public void remove(long id) {
         moniteurRepository.deleteById(id);
 
+    }
+    public Map<Cours,List<Integer>> mapWeeksCourseOfInstructorBySupport(Long numInstructor, Support support)
+    {
+        return getById(numInstructor)
+                .getCoursList()
+                .stream()
+                .filter(cours -> cours.getSupport().equals(support) )
+                .map(cours -> cours.getInscriptions())
+                .flatMap(Collection::stream)
+             //   .map(Inscription::getNumSemaine)
+              //   .collect(Collectors.toList());
+
+                .collect(Collectors.groupingBy
+                        (
+                                Inscription::getCours,
+                                Collectors.mapping(Inscription::getNumSemaine,Collectors.toList())
+
+                        ));
     }
 
     @Override

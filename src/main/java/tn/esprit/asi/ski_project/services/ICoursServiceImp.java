@@ -1,5 +1,6 @@
 package tn.esprit.asi.ski_project.services;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.asi.ski_project.entities.Cours;
@@ -8,10 +9,11 @@ import tn.esprit.asi.ski_project.repositories.CoursRepository;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ICoursServiceImp implements ICoursService {
 
-    @Autowired
-    private CoursRepository coursRepository;
+    //@Autowired
+    private final CoursRepository coursRepository;
     @Override
     public void add(Cours c) {
         coursRepository.save(c);

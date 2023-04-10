@@ -1,5 +1,6 @@
 package tn.esprit.asi.ski_project.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.asi.ski_project.entities.Piste;
@@ -12,9 +13,9 @@ import java.util.List;
 @RestController
 //The front end will use the /skieur path
 @RequestMapping("/piste")
+@RequiredArgsConstructor
 public class PisteController {
-    @Autowired
-    private IPisteService pisteService;
+    private final IPisteService pisteService;
 
     @PostMapping()
     public Piste addPiste(@RequestBody Piste piste) //requestBody : tell the program to look at the body of the http request for a skieur object (in the JSON data)

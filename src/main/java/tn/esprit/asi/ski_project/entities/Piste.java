@@ -5,12 +5,13 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 
 @Entity(name="pistes")
-public class Piste {
+public class Piste implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
