@@ -111,6 +111,6 @@ public class ISkieurServiceImp implements ISkieurService {
     @Override
     public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
         //return getAll().stream().filter(skieur -> skieur.getAbonnement().getTypeAbon()== typeAbonnement).collect(Collectors.toList());
-        return skieurRepository.findByAbonnementTypeAbon(typeAbonnement);
+        return skieurRepository.findByAbonnementTypeAbonJPQL(typeAbonnement);
     }
 }
