@@ -67,7 +67,6 @@ public class IInscriptionServiceImp implements IInscriptionService {
             }
             s.getInscriptions().add(inscription);
             c.getInscriptions().add(inscription);
-
         }
 
         return null;

@@ -38,4 +38,19 @@ public interface SkieurRepository extends JpaRepository<Skieur,Long> {
     @Query("select s from skieurs s order by s.inscriptions.size")
     List<Skieur> findSkieurOrderByNumInscriptionJPQL();
 
+
+    //retrive list skieur qui ont participé à un cours par un certain moniteur in SQL
+    @Query(value = "select * from skieurs s " +
+            "JOIN inscription i on i.skieur_num_skieur = s.num_skieur" +
+            "JOIN moniteur_cours_list mc ON mc.cours_list_num_cours = i.cours_num_cours" +
+            "JOIN moniteurs m ON m.num_moniteur = mc.moniteurs_num_moniteur" +
+            "WHERE m.num_moniteur = ?1", nativeQuery = true)
+    List<Skieur> listSkieurByCoursByMoniteur(Long moniteurId);
+
+
+    //Same as above in JPQL
+    @Query(value = "select s from skieurs s JOIN inscriptions i on i.skieur = s JOIN moniteurs m on i.cours member of m.coursList " +
+            "WHERE m.numMoniteur = ?1")
+    List<Skieur> listSkieurByCoursByMoniteurJPQL(Long moniteurId);
+
 }

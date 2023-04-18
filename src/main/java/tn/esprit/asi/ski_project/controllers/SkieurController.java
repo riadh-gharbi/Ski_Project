@@ -63,5 +63,11 @@ public class SkieurController {
         return skieurService.assignSkieurToAbon(numSkieur,numAbon);
     }
 
+    @PostMapping("/addSkieurCourse")
+    public Skieur addSkierAndAssignToCourse(@RequestBody Skieur s)
+    {
+        return skieurService.addSkierAndAssignToCourse(s);
+    }
+
 
 }

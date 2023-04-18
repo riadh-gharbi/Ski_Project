@@ -4,16 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tn.esprit.asi.ski_project.entities.Abonnement;
-import tn.esprit.asi.ski_project.entities.Inscription;
-import tn.esprit.asi.ski_project.entities.Skieur;
-import tn.esprit.asi.ski_project.entities.TypeAbonnement;
-import tn.esprit.asi.ski_project.repositories.AbonnementRepository;
-import tn.esprit.asi.ski_project.repositories.InscriptionRepository;
-import tn.esprit.asi.ski_project.repositories.PisteRepository;
-import tn.esprit.asi.ski_project.repositories.SkieurRepository;
+import org.springframework.util.Assert;
+import tn.esprit.asi.ski_project.entities.*;
+import tn.esprit.asi.ski_project.repositories.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -37,6 +34,8 @@ public class ISkieurServiceImp implements ISkieurService {
     private final AbonnementRepository abonnementRepository;
 
     private final InscriptionRepository inscriptionRepository;
+    private final CoursRepository coursRepository;
+
     @Override
     @Transactional
     public void add(Skieur s) {
@@ -98,14 +97,37 @@ public class ISkieurServiceImp implements ISkieurService {
     }
 
     @Override
+    @Transactional
     public Skieur addSkierAndAssignToCourse(Skieur skieur) {
         //Créer Abonnement
-        Abonnement a = skieur.getAbonnement();
-        if(a != null && skieur.getInscriptions() != null){
-        abonnementRepository.save(a);
-        inscriptionRepository.saveAll(skieur.getInscriptions());
-        return skieurRepository.save(skieur);}
-        return null;
+        //Abonnement a = skieur.getAbonnement();
+        //if(a != null && skieur.getInscriptions() != null){
+        //abonnementRepository.save(a);
+        //inscriptionRepository.saveAll(skieur.getInscriptions());
+        //return skieurRepository.save(skieur);}
+        //return null;
+
+        //Nested Object
+        Abonnement  a = skieur.getAbonnement();
+        Assert.notNull(a,"Abonnement ne doit pas etre null");
+        Set<Inscription> inscriptions = skieur.getInscriptions();
+        inscriptions.forEach(inscription -> {
+            Assert.notNull(inscription.getCours(),"no Cours Found");
+            Assert.notNull(inscription.getCours().getNumCours(),"no numCours found");
+                    Cours c =coursRepository.findById(inscription.getCours().getNumCours()).orElse(null);
+                    Assert.notNull(c,"cours not in database");
+                    inscription.setCours(c);
+
+
+                }
+               );
+        skieurRepository.saveAndFlush(skieur);
+        skieur.getInscriptions().forEach(inscription -> {
+            inscription.setSkieur(skieur);
+            inscriptionRepository.save(inscription);});
+        return skieur;
+
+
     }
 
     @Override
