@@ -1,6 +1,7 @@
 package tn.esprit.asi.ski_project.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,8 @@ import java.util.stream.Collectors;
 //We don't need to do it in the repository because the Spring Data JPA takes care of it by scanning the project (explained down below)
 @Service
 @RequiredArgsConstructor
+//Added getters and setters for log parameter
+@Slf4j
 public class ISkieurServiceImp implements ISkieurService {
     //Injection de dépendances
     //the skieur repo is empty without instance
@@ -60,6 +63,8 @@ public class ISkieurServiceImp implements ISkieurService {
 
     @Override
     public List<Skieur> getAll() {
+        //Logs should be seperated from Métier (Aspect Oriented Programming)
+        log.info("inside method getAll()");
         return (List<Skieur>) skieurRepository.findAll();
     }
 
