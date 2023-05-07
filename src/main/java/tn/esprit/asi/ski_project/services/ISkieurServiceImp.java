@@ -3,6 +3,7 @@ package tn.esprit.asi.ski_project.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -139,5 +140,16 @@ public class ISkieurServiceImp implements ISkieurService {
     public List<Skieur> retrieveSkiersBySubscriptionType(TypeAbonnement typeAbonnement) {
         //return getAll().stream().filter(skieur -> skieur.getAbonnement().getTypeAbon()== typeAbonnement).collect(Collectors.toList());
         return skieurRepository.findByAbonnementTypeAbonJPQL(typeAbonnement);
+    }
+
+
+    //Scheduling Method
+    @Scheduled(fixedDelay = 5000)
+    //@Scheduled(fixedRate = 60000)
+    //@Scheduled(cron = "0 * * * * MON-FRI")
+    @Transactional
+    public void testScheduler()
+    {
+        skieurRepository.findById(1L).get().getPistes().size();
     }
 }
